@@ -1,5 +1,5 @@
 #!/bin/bash
 
-source /home/virtual_envs/ml/bin/activate
+source /Users/frederikwillger/my_env/bin/activate
 
 srun -u python -m pip freeze
