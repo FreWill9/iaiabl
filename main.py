@@ -3,7 +3,6 @@ import shutil
 import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
-matplotlib.use("Agg")
 import torch
 import torch.utils.data
 # import torch.utils.data.distributed
@@ -22,6 +21,9 @@ import save
 from log import create_logger
 from preprocess import mean, std, preprocess_input_function
 import random
+from settings import class_specific
+
+matplotlib.use("Agg")
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-gpuid', nargs=1, type=str, default='0') # python3 main.py -gpuid=0,1,2,3
@@ -55,7 +57,7 @@ random.seed(random_seed_number)
 torch.backends.cudnn.enabled=False
 torch.backends.cudnn.deterministic=True
 
-# book keeping namings and code
+# bookkeeping namings and code
 from settings import img_size, prototype_shape, num_classes, \
                      prototype_activation_function, add_on_layers_type, prototype_activation_function_in_numpy
 
@@ -166,7 +168,7 @@ log('test set size: {0}'.format(len(test_loader.dataset)))
 log('batch size: {0}'.format(train_batch_size))
 log("Using topk_k coeff from bash args: {0}, which is {1:.4}%".format(topk_k, float(topk_k)*100./(14*14))) # for prototype size 1x1 on 14x14 grid experminents
 
-from settings import class_specific
+
 # construct the model
 if load_model_dir:
     ppnet = torch.load(load_model_dir)
@@ -182,7 +184,7 @@ else:
                                   last_layer_weight=last_layer_weight,
                                   class_specific=class_specific)
 
-#if prototype_activation_function == 'linear':
+# if prototype_activation_function == 'linear':
 #    ppnet.set_last_layer_incorrect_connection(incorrect_strength=0)
 ppnet = ppnet.cuda()
 ppnet_multi = torch.nn.DataParallel(ppnet)
@@ -212,7 +214,7 @@ last_layer_optimizer = torch.optim.Adam(last_layer_optimizer_specs)
 from settings import coefs
 
 # for fa adjustment training only
-if not (fa_coeff_manual==None):
+if not (fa_coeff_manual is None):
     coefs['fine'] = fa_coeff_manual[0]
     print("Using fa coeff from bash args: {}".format(coefs['fine']))
 else:

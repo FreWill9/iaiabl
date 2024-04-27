@@ -8,11 +8,11 @@ from helpers import list_of_distances, make_one_hot
 
 def _train_or_test(model, dataloader, optimizer=None, class_specific=True, use_l1_mask=True,
                    coefs=None, log=print, save_logits=False, finer_loader=None):
-    '''
+    """
     model: the multi-gpu model
     dataloader:
     optimizer: if None, will be test evaluation
-    '''
+    """
     is_train = optimizer is not None 
     start = time.time()
     n_examples = 0

@@ -139,7 +139,7 @@ print(find_nearest.find_k_nearest_patches_to_prototypes(dataloader=train_push_lo
                                                           preprocess_input_function=preprocess_input_function,
                                                           full_save=False,
                                                           log=log))
-print("last layer trasnpose: \n", last_layer.show_last_layer_connections_T(ppnet))
+print("last layer transpose: \n", last_layer.show_last_layer_connections_T(ppnet))
 save.save_model_w_condition(model=ppnet, model_dir=model_dir,
                             model_name=original_model_name.split('push')[0] + 'prune',
                             accu=accu,

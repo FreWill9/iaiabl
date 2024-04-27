@@ -11,7 +11,6 @@ import matplotlib
 import matplotlib.pyplot as plt
 from PIL import Image
 import cv2
-matplotlib.use("Agg")
 import torchvision.datasets as datasets
 from skimage.transform import resize
 import ast
@@ -24,6 +23,8 @@ import pathlib
 from torch import randint, manual_seed
 from copy import copy
 from collections import defaultdict
+
+matplotlib.use("Agg")
 
 def random_flip(input, axis, with_fa=False):
     ran = random.random()
